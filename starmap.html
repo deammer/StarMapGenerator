@@ -1,0 +1,122 @@
+<html>
+	<head>
+		<!-- jQuery -->
+		<script src="http://code.jquery.com/jquery-2.1.1.js" type="text/javascript"></script>
+		<!-- bootstrap -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+		<!-- bootstrap theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+		<link rel="stylesheet" href="bootstrap-slider.css">
+
+		<style type="text/css">
+			html, body {
+				background: #272b30;
+				color: #c8c8c8;
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+			}
+
+			canvas {
+				position: absolute;
+			}
+
+			.container {
+				background-color: #373b40;
+				z-index: 10;
+				border-radius: 20px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<canvas id="canvas-grid">Fix your browser.</canvas>
+		<canvas id="canvas-cells" style="display: none"></canvas>
+		<canvas id="canvas-links"></canvas>
+		<canvas id="canvas-planets" style="display: none"></canvas>
+		<canvas id="canvas-sprites"></canvas>
+
+		<div class="container" id="menu">
+			<div class="row text-center">
+				<h2>Star Map Generator</h2>
+			</div>
+
+			<div class="col-xs-3">
+				<h3 id="theh3">Settings</h3>
+				<label>
+					Max Planets
+					<input id="planet-count-slider" data-slider-id='planet-count-slider' type="text" data-slider-min="10" data-slider-max="100" data-slider-step="1" data-slider-value="30"/>
+				</label>
+				<label>
+					Grid Size
+					<input id="grid-size-slider" data-slider-id='grid-size-slider' type="text" data-slider-min="30" data-slider-max="200" data-slider-step="5" data-slider-value="80"/>
+				</label>
+			</div>
+
+			<div class="col-xs-3">
+				<h3>Display Options</h3>
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" data-target="#canvas-grid" onchange="toggleCheckbox(this)" checked>Show Grid
+					</label>
+				</div>
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" data-target="#canvas-cells" onchange="toggleCheckbox(this)">Show Cells
+					</label>
+				</div>
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" data-target="#canvas-links" onchange="toggleCheckbox(this)" checked>Show Links
+					</label>
+				</div>
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" data-target="#canvas-sprites" onchange="toggleCheckbox(this)" checked>Show Planets
+					</label>
+				</div>
+			</div>
+
+			<div class="col-xs-3">
+				<h3>Stats</h3>
+				<ul class="list-unstyled">
+					<li>Planet Count: <span id="planet-count">0</span></li>
+					<li>Links Count: <span id="links-count">0</span></li>
+				</ul>
+			</div>
+
+			<div class="col-xs-3">
+				<h3>Run</h3>
+				<button type="button" onclick="start()" class="btn btn-default btn-lg">
+					<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Generate
+				</button>
+			</div>
+
+		</div>
+
+		<script src="starmap.js" type="text/javascript"></script>
+		<script src="bootstrap-slider.js" type="text/javascript"></script>
+		<script>
+			// init the planet count slider
+			var planetSlider = new Slider("input#planet-count-slider", {
+				formatter: function(value) {
+					return value;
+				}
+			});
+
+			// init the grid size slider
+			var gridSlider = new Slider('input#grid-size-slider', {
+				formatter: function(value) {
+					return value + 'px';
+				}
+			});
+
+			// init the checkboxes
+			function toggleCheckbox(element) {
+				$(element.getAttribute('data-target')).fadeToggle('fast');
+			}
+		</script>
+	</body>
+</html>
